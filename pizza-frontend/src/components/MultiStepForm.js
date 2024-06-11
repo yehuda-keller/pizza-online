@@ -1,6 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Form } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col } from 'react-bootstrap';
 import useDataApi from './useDataApi';
+import PizzaCard from './PizzaCard';
+import margarita from '../image/margarita.png';
+import WhitePizza from '../image/WhitePizza.png';
+import greenPizza from '../image/greenPizza.png';
+import trufflePizza from '../image/TrufflePizza.png';
+import veganPizza from '../image/VeganPizza.png';
+import zucchiniPizza from '../image/ZucchiniPizza.png';
+
+const cardInfo = [
+    {
+        title: "Margherita Pizza",
+        price: 75.00,
+        description: "Classic pizza with tomato sauce, mozzarella cheese, and fresh basil leaves.",
+        image: margarita,
+        buttonText: "Select"
+    },
+    {
+        title: "White Pizza",
+        price: 75.00,
+        description: "Delicious pizza with a creamy white sauce, mozzarella cheese, and your choice of toppings.",
+        image: WhitePizza,
+        buttonText: "Select"
+    },
+    {
+        title: "Green Pizza",
+        price: 77.00,
+        description: "Healthy pizza topped with a variety of green vegetables like spinach, broccoli, and bell peppers, along with mozzarella cheese.",
+        image: greenPizza,
+        buttonText: "Select"
+    },
+    {
+        title: "Truffle Pizza",
+        price: 77.00,
+        description: "Gourmet pizza featuring truffle oil, mushrooms, mozzarella cheese, and a touch of garlic.",
+        image: trufflePizza,
+        buttonText: "Select"
+    },
+    {
+        title: "Vegan Pizza",
+        price: 69.00,
+        description: "Plant-based pizza with vegan cheese, a variety of fresh vegetables, and flavorful marinara sauce.",
+        image: veganPizza,
+        buttonText: "Select"
+    },
+    {
+        title: "Zucchini Pizza",
+        price: 77.00,
+        description: "Light and refreshing pizza topped with thinly sliced zucchini, cherry tomatoes, mozzarella cheese, and fresh basil.",
+        image: zucchiniPizza,
+        buttonText: "Select"
+    }
+];
 
 function MultiStepForm() {
     const [step, setStep] = useState(1);
@@ -8,9 +60,10 @@ function MultiStepForm() {
     const [{ data, isLoading, isError }, setRequestConfig] = useDataApi('', {});
 
     const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }));
+        const { name, value } = event.target;
+        setInputs((values) => ({ ...values, [name]: value }));
+        console.log(`Updated ${name}:`, value);  // Log input changes
+        console.log("Current inputs:", inputs);  // Log current inputs
     };
 
     const handleNextStep = () => {
@@ -21,12 +74,21 @@ function MultiStepForm() {
         setStep(step - 1);
     };
 
+    const handleSelectPizza = (pizzaTitle) => {
+        setInputs((values) => ({ ...values, selectedPizza: pizzaTitle }));
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Submitting data:", inputs);  // Log inputs to debug
 
         const url = '/orders';
-        const requestData = inputs;
+        const requestData = {
+            phoneNumber: inputs.phonenumber,  // Ensure field names match
+            address: inputs.homeaddress,
+            name: inputs.username,
+            selectedPizza: inputs.selectedPizza
+        };
 
         setRequestConfig({
             url,
@@ -112,6 +174,27 @@ function MultiStepForm() {
             {step === 4 && (
                 <Card>
                     <Card.Body>
+                        <Card.Title>Select your pizza</Card.Title>
+                        <Row>
+                            {cardInfo.map((card, index) => (
+                                <Col key={index} md={4} className="mb-4">
+                                    <PizzaCard {...card} onClick={() => handleSelectPizza(card.title)} showButton={true} />
+                                </Col>
+                            ))}
+                        </Row>
+                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
+                            Back
+                        </Button>
+                        <Button variant="primary" onClick={handleNextStep}>
+                            Continue
+                        </Button>
+                    </Card.Body>
+                </Card>
+            )}
+
+            {step === 5 && (
+                <Card>
+                    <Card.Body>
                         <Card.Title>Review & Submit</Card.Title>
                         <div className="mb-3">
                             <strong>Phone Number:</strong> {inputs.phonenumber}
@@ -121,6 +204,9 @@ function MultiStepForm() {
                         </div>
                         <div className="mb-3">
                             <strong>Name:</strong> {inputs.username}
+                        </div>
+                        <div className="mb-3">
+                            <strong>Selected Pizza:</strong> {inputs.selectedPizza}
                         </div>
                         <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
                             Back

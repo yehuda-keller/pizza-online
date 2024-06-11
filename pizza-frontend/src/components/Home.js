@@ -4,8 +4,11 @@ import background from '../image/background.png';
 
 function Home() {
     const wrapperStyle = {
-        width: "100%",
-        height: "100vh", // Make it cover the entire viewport height
+        position: 'fixed', // Make the background cover the entire page
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         backgroundImage: `url(${background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -14,7 +17,13 @@ function Home() {
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'
+        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+        zIndex: -1 // Ensure the background stays behind other elements
+    };
+
+    const contentStyle = {
+        zIndex: 1, // Ensure content stays above the background
+        textAlign: 'center'
     };
 
     const navigate = useNavigate();
@@ -25,7 +34,7 @@ function Home() {
 
     return (
         <div style={wrapperStyle}>
-            <div className="text-center">
+            <div style={contentStyle}>
                 <h1>Welcome to Pizza Online!</h1>
                 <p>Your favorite pizza delivered hot and fresh.</p>
                 <button className="btn btn-primary mt-3" onClick={handleStartOrder}>
