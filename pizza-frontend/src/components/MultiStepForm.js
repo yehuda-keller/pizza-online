@@ -54,6 +54,28 @@ const cardInfo = [
     }
 ];
 
+const cardStyles = {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '20px'
+};
+
+const cardBodyStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+};
+
+const hrStyles = {
+    margin: '20px 0'
+};
+
+const buttonStyles = {
+    alignSelf: 'center'
+};
+
 function MultiStepForm() {
     const [step, setStep] = useState(1);
     const [inputs, setInputs] = useState({});
@@ -62,8 +84,6 @@ function MultiStepForm() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setInputs((values) => ({ ...values, [name]: value }));
-        console.log(`Updated ${name}:`, value);  // Log input changes
-        console.log("Current inputs:", inputs);  // Log current inputs
     };
 
     const handleNextStep = () => {
@@ -80,11 +100,10 @@ function MultiStepForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Submitting data:", inputs);  // Log inputs to debug
 
         const url = '/orders';
         const requestData = {
-            phoneNumber: inputs.phonenumber,  // Ensure field names match
+            phoneNumber: inputs.phonenumber,
             address: inputs.homeaddress,
             name: inputs.username,
             selectedPizza: inputs.selectedPizza
@@ -99,15 +118,15 @@ function MultiStepForm() {
 
     useEffect(() => {
         if (data) {
-            console.log("Response data:", data);  // Log response data for debugging
+            console.log("Response data:", data);
         }
     }, [data]);
 
     return (
         <Form onSubmit={handleSubmit}>
             {step === 1 && (
-                <Card>
-                    <Card.Body>
+                <Card style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Phone Number</Card.Title>
                         <Form.Group controlId="formPhoneNumber">
                             <Form.Label>Phone Number:</Form.Label>
@@ -118,7 +137,8 @@ function MultiStepForm() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleNextStep}>
+                        <hr style={hrStyles} />
+                        <Button variant="primary" onClick={handleNextStep} style={buttonStyles}>
                             Continue
                         </Button>
                     </Card.Body>
@@ -126,8 +146,8 @@ function MultiStepForm() {
             )}
 
             {step === 2 && (
-                <Card>
-                    <Card.Body>
+                <Card style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Home Address</Card.Title>
                         <Form.Group controlId="formHomeAddress">
                             <Form.Label>Home Address:</Form.Label>
@@ -138,10 +158,12 @@ function MultiStepForm() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
+                        <hr style={hrStyles} />
+                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2" style={buttonStyles}>
                             Back
                         </Button>
-                        <Button variant="primary" onClick={handleNextStep}>
+
+                        <Button variant="primary" onClick={handleNextStep} style={buttonStyles}>
                             Continue
                         </Button>
                     </Card.Body>
@@ -149,8 +171,8 @@ function MultiStepForm() {
             )}
 
             {step === 3 && (
-                <Card>
-                    <Card.Body>
+                <Card style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Name</Card.Title>
                         <Form.Group controlId="formName">
                             <Form.Label>Name:</Form.Label>
@@ -161,10 +183,11 @@ function MultiStepForm() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
+                        <hr style={hrStyles} />
+                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2" style={buttonStyles}>
                             Back
                         </Button>
-                        <Button variant="primary" onClick={handleNextStep}>
+                        <Button variant="primary" onClick={handleNextStep} style={buttonStyles}>
                             Continue
                         </Button>
                     </Card.Body>
@@ -172,8 +195,8 @@ function MultiStepForm() {
             )}
 
             {step === 4 && (
-                <Card>
-                    <Card.Body>
+                <Card style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Select your pizza</Card.Title>
                         <Row>
                             {cardInfo.map((card, index) => (
@@ -182,10 +205,11 @@ function MultiStepForm() {
                                 </Col>
                             ))}
                         </Row>
-                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
+                        <hr style={hrStyles} />
+                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2" style={buttonStyles}>
                             Back
                         </Button>
-                        <Button variant="primary" onClick={handleNextStep}>
+                        <Button variant="primary" onClick={handleNextStep} style={buttonStyles}>
                             Continue
                         </Button>
                     </Card.Body>
@@ -193,8 +217,8 @@ function MultiStepForm() {
             )}
 
             {step === 5 && (
-                <Card>
-                    <Card.Body>
+                <Card style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Review & Submit</Card.Title>
                         <div className="mb-3">
                             <strong>Phone Number:</strong> {inputs.phonenumber}
@@ -208,10 +232,11 @@ function MultiStepForm() {
                         <div className="mb-3">
                             <strong>Selected Pizza:</strong> {inputs.selectedPizza}
                         </div>
-                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2">
+                        <hr style={hrStyles} />
+                        <Button variant="secondary" onClick={handlePreviousStep} className="me-2" style={buttonStyles}>
                             Back
                         </Button>
-                        <Button variant="success" type="submit" disabled={isLoading}>
+                        <Button variant="success" type="submit" disabled={isLoading} style={buttonStyles}>
                             {isLoading ? 'Submitting...' : 'Submit'}
                         </Button>
                     </Card.Body>
@@ -219,8 +244,8 @@ function MultiStepForm() {
             )}
 
             {isError && (
-                <Card className="mt-3">
-                    <Card.Body>
+                <Card className="mt-3" style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Error</Card.Title>
                         <div>There was an error submitting your data. Please try again.</div>
                     </Card.Body>
@@ -228,8 +253,8 @@ function MultiStepForm() {
             )}
 
             {data && (
-                <Card className="mt-3">
-                    <Card.Body>
+                <Card className="mt-3" style={cardStyles}>
+                    <Card.Body style={cardBodyStyles}>
                         <Card.Title>Result</Card.Title>
                         <div>Result is {JSON.stringify(data)}</div>
                     </Card.Body>
