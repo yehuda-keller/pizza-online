@@ -1,58 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Row, Col } from 'react-bootstrap';
-import useDataApi from './useDataApi';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import PizzaCard from './PizzaCard';
-import margarita from '../image/margarita.png';
-import WhitePizza from '../image/WhitePizza.png';
-import greenPizza from '../image/greenPizza.png';
-import trufflePizza from '../image/TrufflePizza.png';
-import veganPizza from '../image/VeganPizza.png';
-import zucchiniPizza from '../image/ZucchiniPizza.png';
-
-const cardInfo = [
-    {
-        title: "Margherita Pizza",
-        price: 75.00,
-        description: "Classic pizza with tomato sauce, mozzarella cheese, and fresh basil leaves.",
-        image: margarita,
-        buttonText: "Select"
-    },
-    {
-        title: "White Pizza",
-        price: 75.00,
-        description: "Delicious pizza with a creamy white sauce, mozzarella cheese, and your choice of toppings.",
-        image: WhitePizza,
-        buttonText: "Select"
-    },
-    {
-        title: "Green Pizza",
-        price: 77.00,
-        description: "Healthy pizza topped with a variety of green vegetables like spinach, broccoli, and bell peppers, along with mozzarella cheese.",
-        image: greenPizza,
-        buttonText: "Select"
-    },
-    {
-        title: "Truffle Pizza",
-        price: 77.00,
-        description: "Gourmet pizza featuring truffle oil, mushrooms, mozzarella cheese, and a touch of garlic.",
-        image: trufflePizza,
-        buttonText: "Select"
-    },
-    {
-        title: "Vegan Pizza",
-        price: 69.00,
-        description: "Plant-based pizza with vegan cheese, a variety of fresh vegetables, and flavorful marinara sauce.",
-        image: veganPizza,
-        buttonText: "Select"
-    },
-    {
-        title: "Zucchini Pizza",
-        price: 77.00,
-        description: "Light and refreshing pizza topped with thinly sliced zucchini, cherry tomatoes, mozzarella cheese, and fresh basil.",
-        image: zucchiniPizza,
-        buttonText: "Select"
-    }
-];
 
 const cardStyles = {
     height: '100%',
@@ -79,7 +29,23 @@ const buttonStyles = {
 function MultiStepForm() {
     const [step, setStep] = useState(1);
     const [inputs, setInputs] = useState({});
-    const [{ data, isLoading, isError }, setRequestConfig] = useDataApi('', {});
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [pizzas, setPizzas] = useState([]); // State to hold the pizzas
+    const navigate = useNavigate(); // Initialize the useNavigate hook
+
+    useEffect(() => {
+        const fetchPizzas = async () => {
+            try {
+                const response = await axios.get('/pizzas');
+                setPizzas(response.data);
+            } catch (error) {
+                console.error("There was an error fetching the pizzas!", error);
+            }
+        };
+
+        fetchPizzas();
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -109,18 +75,17 @@ function MultiStepForm() {
             selectedPizza: inputs.selectedPizza
         };
 
-        setRequestConfig({
-            url,
-            method: 'POST',
-            data: requestData,
-        });
-    };
-
-    useEffect(() => {
-        if (data) {
-            console.log("Response data:", data);
+        try {
+            setIsLoading(true);
+            await axios.post(url, requestData);
+            navigate('/'); // Navigate to home page after successful submission
+        } catch (error) {
+            setIsError(true);
+            console.error("There was an error submitting your data!", error);
+        } finally {
+            setIsLoading(false);
         }
-    }, [data]);
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -199,9 +164,9 @@ function MultiStepForm() {
                     <Card.Body style={cardBodyStyles}>
                         <Card.Title>Select your pizza</Card.Title>
                         <Row>
-                            {cardInfo.map((card, index) => (
+                            {pizzas.map((pizza, index) => (
                                 <Col key={index} md={4} className="mb-4">
-                                    <PizzaCard {...card} onClick={() => handleSelectPizza(card.title)} showButton={true} />
+                                    <PizzaCard {...pizza} onClick={() => handleSelectPizza(pizza.title)} showButton={true} />
                                 </Col>
                             ))}
                         </Row>
@@ -248,15 +213,6 @@ function MultiStepForm() {
                     <Card.Body style={cardBodyStyles}>
                         <Card.Title>Error</Card.Title>
                         <div>There was an error submitting your data. Please try again.</div>
-                    </Card.Body>
-                </Card>
-            )}
-
-            {data && (
-                <Card className="mt-3" style={cardStyles}>
-                    <Card.Body style={cardBodyStyles}>
-                        <Card.Title>Result</Card.Title>
-                        <div>Result is {JSON.stringify(data)}</div>
                     </Card.Body>
                 </Card>
             )}

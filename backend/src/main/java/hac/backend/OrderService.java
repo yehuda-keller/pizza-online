@@ -27,4 +27,8 @@ public class OrderService {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void deleteOrder(Long id) {
+        orders.removeIf(order -> order.getId().equals(id));
+    }
 }

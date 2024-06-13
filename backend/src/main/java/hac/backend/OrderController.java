@@ -21,8 +21,13 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/orders/{id}")
     public Order getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
+    }
+
+    @DeleteMapping("/orders/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
     }
 }

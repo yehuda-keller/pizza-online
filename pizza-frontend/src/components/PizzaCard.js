@@ -26,7 +26,7 @@ function PizzaCard({ title, price, description, image, buttonText, onClick, show
                 </Card.Text>
                 {showButton && (
                     <div className="mt-auto">
-                        <Button variant="primary" onClick={onClick}>{buttonText}</Button>
+                        <Button variant="primary" onClick={onClick}>Add</Button>
                     </div>
                 )}
             </Card.Body>

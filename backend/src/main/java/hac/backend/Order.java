@@ -5,7 +5,7 @@ public class Order {
     private String phoneNumber;
     private String address;
     private String name;
-    private String orderDetails;
+    private String selectedPizza;    // New field
 
     // Getters and setters
     public Long getId() {
@@ -40,6 +40,14 @@ public class Order {
         this.name = name;
     }
 
+    public String getSelectedPizza() {
+        return selectedPizza;
+    }
+
+    public void setSelectedPizza(String selectedPizza) {
+        this.selectedPizza = selectedPizza;
+    }
+
 
     @Override
     public String toString() {
@@ -48,6 +56,7 @@ public class Order {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
+                " pizza type='" + selectedPizza + '\'' +
                 '}';
     }
 }
