@@ -29,7 +29,7 @@ const NavBar = ({ setOrderId }) => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/" style={navStyle}>HOME</Nav.Link>
                         <Nav.Link as={Link} to="/menu" style={navStyle}>PIZZA PLANS!</Nav.Link>
-                        <Nav.Link as={Link} to="/blog" style={navStyle}>BLOG</Nav.Link>
+                        <Nav.Link as={Link} to="/infoComponent" style={navStyle}>INFO</Nav.Link>
                         <Nav.Link as={Link} to="/cart" style={navStyle}>
                             <img src={cartIcon} alt="Cart" width="30" height="30" />
                         </Nav.Link>

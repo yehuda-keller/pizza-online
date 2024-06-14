@@ -5,8 +5,10 @@ import Home from './components/Home';
 import Menu from './components/Menu';
 import Cart from './components/Cart';
 import MultiStepForm from './components/MultiStepForm';
+import InfoComponent from './components/InfoComponent';
 import NavBar from './components/NavBar';
 import OrderDetails from './components/OrderDetails';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/form" element={<MultiStepForm />} />
                     <Route path="/order/:orderId" element={<OrderDetails orderId={orderId} />} />
+                    <Route path="/infoComponent" element={<InfoComponent />} />
                 </Routes>
             </Container>
         </Router>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import background from '../image/backgrond2.png';
-import InfoComponent from './InfoComponent';
 import './Home.css';
 
 function Home() {
@@ -22,7 +22,6 @@ function Home() {
                 <button className="btn outline-success" onClick={handleStartOrder}>
                     START NEW ORDER
                 </button>
-                <InfoComponent />
             </div>
         </div>
     );

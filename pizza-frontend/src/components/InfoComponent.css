@@ -1,16 +1,31 @@
 .info-container {
     display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .info-column {
     flex: 1;
-    padding: 0 20px;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.info-column h2, .info-column h3 {
+    margin-top: 0;
+}
+
+.info-column p {
+    margin: 5px 0;
+}
+
+.info-column a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.info-column a:hover {
+    text-decoration: underline;
 }
