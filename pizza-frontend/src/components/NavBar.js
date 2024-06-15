@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Nav, Navbar, Form, Button, Row, Col } from 'react-bootstrap';
 import cartIcon from '../image/carticon.png';
+import { useOrder } from '../App'; // Ensure correct import path
 
-const NavBar = ({ setOrderId }) => {
+const NavBar = () => {
     const navStyle = {
         color: 'green'
     };
 
     const [searchOrderId, setSearchOrderId] = useState('');
     const navigate = useNavigate();
+    const { setOrderId } = useOrder(); // Use the setOrderId function from context
 
     const handleSearch = (e) => {
         e.preventDefault();
+        console.log('Search Order ID:', searchOrderId); // Log the searchOrderId
         if (searchOrderId) {
             setOrderId(searchOrderId);
             navigate(`/order/${searchOrderId}`);
             setSearchOrderId(''); // Reset search input
+        } else {
+            console.error('Search Order ID is undefined');
         }
     };
 

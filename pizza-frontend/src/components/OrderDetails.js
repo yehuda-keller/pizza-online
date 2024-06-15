@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useDataApi from './useDataApi';
-import { Card, Button, Container } from 'react-bootstrap';
+import { Card, Button, Container ,Badge} from 'react-bootstrap';
 import axios from 'axios';
 
-const OrderDetails = ({ orderId }) => {
+const OrderDetails = () => {
+    const { orderId } = useParams();
     const [{ data, isLoading, isError }, doFetch] = useDataApi(
         `/orders/${orderId}`,
         {}
@@ -50,7 +51,19 @@ const OrderDetails = ({ orderId }) => {
                             <strong>Address:</strong> {data.address ? data.address : 'Address not available'}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Order:</strong> {data.selectedPizza ? data.selectedPizza : 'Order not available'}
+                            <strong>Order:</strong>
+                            <ul>
+                                {data.selectedPizzas && data.selectedPizzas.length > 0 ? (
+                                    data.selectedPizzas.map((pizza, index) => (
+                                        <li key={index}>
+                                            {pizza.title}: <Badge bg="secondary">{pizza.quantity}</Badge>
+                                            {pizza.price ? ` - ₪ ${pizza.price}` : ''}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li>Order not available</li>
+                                )}
+                            </ul>
                         </Card.Text>
                         <Button variant="danger" onClick={handleDelete}>Delete Order</Button>
                     </Card.Body>

@@ -1,37 +1,46 @@
-import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Card, Form } from 'react-bootstrap';
+import './PizzaCard.css';
 
-function PizzaCard({ title, price, description, image, buttonText, onClick, showButton }) {
-    const imgStyle = {
-        width: '100%',
-        height: '200px',
-        objectFit: 'cover'
-    };
+const PizzaCard = ({ title, price, description, image, onQuantityChange, showQuantity }) => {
+    const [quantity, setQuantity] = useState(0);
 
-    const cardStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%'
+    useEffect(() => {
+        setQuantity(0); // Reset quantity when component mounts or showQuantity changes
+    }, [showQuantity]);
+
+    const handleQuantityChange = (event) => {
+        const newQuantity = parseInt(event.target.value, 10);
+        setQuantity(newQuantity);
+        if (onQuantityChange) {
+            onQuantityChange(title, newQuantity);
+        }
     };
 
     return (
-        <Card style={cardStyle}>
-            <Card.Img style={imgStyle} variant="top" src={image} />
-            <Card.Body className="d-flex flex-column">
+        <Card className="pizza-card">
+            <Card.Img variant="top" src={image} className="pizza-card-img" />
+            <Card.Body>
                 <Card.Title>{title}</Card.Title>
-                <Card.Text>
-                    {price && <p>Price: ₪ {price}</p>}
-                    {description}
-                </Card.Text>
-                {showButton && (
-                    <div className="mt-auto">
-                        <Button variant="primary" onClick={onClick}>Add</Button>
-                    </div>
+                <Card.Text>{description}</Card.Text>
+                <Card.Text>Price: ₪ {price}</Card.Text>
+                {showQuantity && (
+                    <>
+                        <Form.Group controlId={`quantity-${title}`}>
+                            <Form.Label>Quantity</Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                min="0"
+                            />
+                        </Form.Group>
+                        <Card.Text>Total Price: ₪ {quantity * price}</Card.Text>
+                    </>
                 )}
             </Card.Body>
         </Card>
     );
-}
+};
 
 export default PizzaCard;

@@ -3,7 +3,9 @@ package hac.backend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -12,8 +14,11 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/orders")
-    public Order createOrder(@RequestBody Order order) {
-        return orderService.saveOrder(order);
+    public Map<String, Object> createOrder(@RequestBody Order order) {
+        Order savedOrder = orderService.saveOrder(order);
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderId", savedOrder.getId()); // Assuming getId() returns the orderId
+        return response;
     }
 
     @GetMapping("/")

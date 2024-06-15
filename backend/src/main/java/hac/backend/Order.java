@@ -1,11 +1,13 @@
 package hac.backend;
 
+import java.util.List;
+
 public class Order {
     private Long id;
     private String phoneNumber;
     private String address;
     private String name;
-    private String selectedPizza;    // New field
+    private List<PizzaOrder> selectedPizzas;    // Changed to List
 
     // Getters and setters
     public Long getId() {
@@ -40,14 +42,13 @@ public class Order {
         this.name = name;
     }
 
-    public String getSelectedPizza() {
-        return selectedPizza;
+    public List<PizzaOrder> getSelectedPizzas() {
+        return selectedPizzas;
     }
 
-    public void setSelectedPizza(String selectedPizza) {
-        this.selectedPizza = selectedPizza;
+    public void setSelectedPizzas(List<PizzaOrder> selectedPizzas) {
+        this.selectedPizzas = selectedPizzas;
     }
-
 
     @Override
     public String toString() {
@@ -56,7 +57,7 @@ public class Order {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
-                " pizza type='" + selectedPizza + '\'' +
+                ", selectedPizzas=" + selectedPizzas +
                 '}';
     }
 }

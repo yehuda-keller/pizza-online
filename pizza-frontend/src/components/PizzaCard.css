@@ -1,0 +1,21 @@
+/* PizzaCard.css */
+.pizza-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 300px; /* Adjust width as needed */
+    margin: auto;
+}
+
+.pizza-card-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.pizza-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}

@@ -23,7 +23,7 @@ function Menu() {
                             price={pizza.price}
                             description={pizza.description}
                             image={pizza.image}
-                            showButton={false}
+                            showQuantity={false}
                         />
                     </Col>
                 ))
