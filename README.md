@@ -1,7 +1,8 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Ke_DgSzD)
 # Pizza Online!
 
-![Pizza Online!](./path_to_your_image/Screenshot 2024-06-15 at 11.41.48.png)
+![Pizza Online!](./pizza-frontend/src/image/readme.png)
+
 
 Welcome to Pizza Online! Your favorite pizza delivered hot and fresh.
 
