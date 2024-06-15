@@ -5,51 +5,11 @@
 
 Welcome to Pizza Online! Your favorite pizza delivered hot and fresh.
 
-## Table of Contents
-- [Description](#description)
-- [Backend Setup](#backend-setup)
-- [Frontend Setup](#frontend-setup)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Description
 
 Pizza Online! is a web application where users can order their favorite pizzas online. The application consists of a backend built with Java and Spring Boot, and a frontend built with React and Bootstrap.
 
-## Backend Setup
 
-### Prerequisites
-- Java 8 or later
-- Maven
-- IDE (IntelliJ, Eclipse, etc.)
-
-### Installation
-
-1. **Clone the repository:**
-
-    ```sh
-    git clone https://github.com/yourusername/pizza-online-backend.git
-    ```
-
-2. **Navigate to the project directory:**
-
-    ```sh
-    cd pizza-online-backend
-    ```
-
-3. **Build the project using Maven:**
-
-    ```sh
-    mvn clean install
-    ```
-
-4. **Run the Spring Boot application:**
-
-    ```sh
-    mvn spring-boot:run
-    ```
 
 ### Endpoints
 
@@ -74,37 +34,7 @@ A pizza consists of:
 3. Description
 4. Image URL
 
-## Frontend Setup
 
-### Prerequisites
-- Node.js
-- npm (or yarn)
-
-### Installation
-
-1. **Clone the repository:**
-
-    ```sh
-    git clone https://github.com/yourusername/pizza-online-frontend.git
-    ```
-
-2. **Navigate to the project directory:**
-
-    ```sh
-    cd pizza-online-frontend
-    ```
-
-3. **Install dependencies:**
-
-    ```sh
-    npm install
-    ```
-
-4. **Start the development server:**
-
-    ```sh
-    npm start
-    ```
 
 ### Directory Structure
 
